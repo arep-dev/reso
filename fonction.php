@@ -1,0 +1,289 @@
+<?php
+    // Accès à la base de données.
+    function myownlink()
+    {
+        $user="arep_CATB";
+        $host="142.4.214.101";
+        $password="arep-sa";
+        $database="RESO";
+
+        $myownlink = mysqli_connect("$host", "$user", "$password", "$database") or die ("Connexion impossible au serveur");
+    
+        return $myownlink;
+    }
+
+    // Chargement données de la table PROFIL.
+    function chargement_profil($pro_num){
+
+        $sql = 'SELECT * FROM PROFIL WHERE PRO_NUM = "'.$pro_num.'"';
+        $result = mysqli_query(myownlink(),$sql);
+        $donnees = mysqli_fetch_array($result);
+              
+            $profil = array(
+                "PRO_CIVILITE" => $donnees["PRO_CIVILITE"],
+                "PRO_NOM" => $donnees["PRO_NOM"],
+                "PRO_PRENOM" => $donnees["PRO_PRENOM"],
+                "PRO_MDP" => $donnees["PRO_MDP"],
+                "PRO_JOUR_NAISSANCE" => $donnees["PRO_JOUR_NAISSANCE"],
+                "PRO_MOIS_NAISSANCE" => $donnees["PRO_MOIS_NAISSANCE"],
+                "PRO_ANNEE_NAISSANCE" => $donnees["PRO_ANNEE_NAISSANCE"],
+                "PRO_NAISSANCE" => $donnees["PRO_NAISSANCE"],
+                "CORRES_ADRESSE1" => $donnees["CORRES_ADRESSE1"],
+                "CORRES_ADRESSE2" => $donnees["CORRES_ADRESSE2"],
+                "CORRES_CP" => $donnees["CORRES_CP"],
+                "CORRES_VILLE" => $donnees["CORRES_VILLE"],
+                "CORRES_PAYS" => $donnees["CORRES_PAYS"],
+                "PRO_EMAIL" => $donnees["PRO_EMAIL"],
+                "PRO_TEL" => $donnees["PRO_TEL"],
+                "PRO_MOB" => $donnees["PRO_MOB"],
+                "PRO_FAX" => $donnees["PRO_FAX"],
+                "SOC_NOM" => $donnees["SOC_NOM"],
+                "SOC_SIREN" => $donnees["SOC_SIREN"],
+                "SOC_STRUCTURE_JURIDIQUE" => $donnees["SOC_STRUCTURE_JURIDIQUE"],
+                "SOC_ADRESSE1" => $donnees["SOC_ADRESSE1"],
+                "SOC_ADRESSE2" => $donnees["SOC_ADRESSE2"],
+                "SOC_CP" => $donnees["SOC_CP"],
+                "SOC_VILLE" => $donnees["SOC_VILLE"],
+                "SOC_PAYS" => $donnees["SOC_PAYS"],
+                "SOC_TEL" => $donnees["SOC_TEL"],
+                "SOC_FAX" =>  $donnees["SOC_FAX"],
+                "SOC_MOB" => $donnees["SOC_MOB"],
+                "SOC_EMAIL" => $donnees["SOC_EMAIL"],
+                "SOC_SITE_WEB" => $donnees["SOC_SITE_WEB"],
+                "SOC_NB_EMPLOYES" => $donnees["SOC_NB_EMPLOYES"],
+                "SOC_ACHETEUR" => $donnees["SOC_ACHETEUR"],
+                "SOC_ACHETEUR_EMAIL" => $donnees["SOC_ACHETEUR_EMAIL"],
+                "SOC_ACHETEUR_MOB" => $donnees["SOC_ACHETEUR_MOB"]                
+            );
+        
+            return $profil;
+            
+    }
+    
+    // Chargement de la table HOBBIE.
+    function chargement_hobbie($pro_num){
+        $sql = 'SELECT * FROM HOBBIE WHERE HOB_PRO_NUM = "'.$pro_num.'"';
+        $result = mysqli_query(myownlink(), $sql);
+        $donnees = mysqli_fetch_array($result);
+                
+            $hobbie = array(
+                "HOB_GOLF" => $donnees["HOB_GOLF"],
+                "HOB_SPORT_MECA" => $donnees["HOB_SPORT_MECA"],
+                "HOB_GASTRO_OENO" => $donnees["HOB_GASTRO_OENO"],
+                "HOB_ARCHITECTURE" => $donnees["HOB_ARCHITECTURE"],
+                "HOB_PLONGEE" => $donnees["HOB_PLONGEE"],
+                "HOB_SAFARI" => $donnees["HOB_SAFARI"]
+            );
+        
+            return $hobbie;    
+    }
+
+    
+    // Chargement de la table ACTIVITE_NAME ET ACTIVITE_VAL
+    function get_activity_name(){
+        $sql = 'SELECT * FROM ACTIVITE_NAME';
+        $result = mysqli_query(myownlink(), $sql);
+        $donnees = mysqli_fetch_array($result);
+        
+        $activite = array(
+            "SOC_ACTIVITE1" => utf8_encode($donnees["SOC_ACTIVITE1"]),
+            "SOC_ACTIVITE2" => utf8_encode($donnees["SOC_ACTIVITE2"]),
+            "SOC_ACTIVITE3" => utf8_encode($donnees["SOC_ACTIVITE3"]),
+            "SOC_ACTIVITE4" => utf8_encode($donnees["SOC_ACTIVITE4"]),
+            "SOC_ACTIVITE5" => utf8_encode($donnees["SOC_ACTIVITE5"])
+        );
+        
+        return $activite;
+    }
+
+    function get_activity_val($id){
+        $sql = 'SELECT * FROM ACTIVITE_VAL WHERE SOC_PRO_NUM = "'.$id.'"';
+        $result = mysqli_query(myownlink(), $sql);
+        $donnees = mysqli_fetch_array($result);
+        
+        $activite = array(
+            "SOC_QUOTE1" => $donnees["SOC_QUOTE1"],
+            "SOC_QUOTE2" => $donnees["SOC_QUOTE2"],
+            "SOC_QUOTE3" => $donnees["SOC_QUOTE3"],
+            "SOC_QUOTE4" => $donnees["SOC_QUOTE4"],
+            "SOC_QUOTE5" => $donnees["SOC_QUOTE5"]
+        );
+        
+        return $activite;
+    }
+
+
+    function message_return($return){
+        
+        // Tableau des messages d'erreurs.
+        // 100 - 199 messages success. GREEN
+        // 200 - 299 messages error. RED
+        // 300 - 399 messages error/success. ORANGE 
+        $messageErreur = array(
+        '100' => 'Modification effectuée avec succès.',
+        '101' => 'Email envoyé avec succès, pensez à verifier vos spams.',
+        '201' => 'Les deux mots de passe ne sont pas identiques.',
+        '202' => 'Votre ancien mot de passe est incorrect.',
+        '203' => 'Des champs ne sont pas remplis.',
+        '204' => 'La somme des activités doit faire 100%.',
+        '205' => 'Le fichier est trop volumineux',   
+        '206' => 'Format de fichier non pris en charge.',   
+        '207' => 'Vous devez charger un fichier.',   
+        '208' => 'Les identifiants sont incorrects.',   
+        '209' => 'Une erreur est survenue',   
+        '301' => 'Attention, certains champs ne sont pas remplis.',
+        '302' => 'La somme des activités doit faire 100%.'
+        );
+        
+        $message = $messageErreur[$return];
+        return $message;
+        
+    }
+
+    function chargement_fidelite($id, $annee, $mois_en_cours){
+        $sql = 'SELECT * FROM FIDELITE WHERE RES_PRO_NUM = "'.$id.'"';
+        $result = mysqli_query(myownlink(), $sql);
+        $donnees = mysqli_fetch_array($result);
+        
+        //Calcul du CA TOTAL
+        for($i = 1; $i <= $mois_en_cours; $i++){
+            if($i < 10)
+            {
+                $CA_TOTAL += $donnees['RES_CA_0'.$i.'_'.$annee.''];
+            }else{
+                $CA_TOTAL += $donnees['RES_CA_'.$i.'_'.$annee.''];
+            }
+        }
+        
+        //Calcul €V FIDELITE + Pourcentage / Cout total voyage
+        //Pour modifier les pourcentages => Remplacer 0.04 et 0.01
+        $euro_fidelite = 0.01*$CA_TOTAL;
+        
+        if($euro_fidelite > 0.01*$donnees["RES_CA_REFERENCE"])
+        {
+            $euro_fidelite = 0.01*$donnees["RES_CA_REFERENCE"];
+        }
+        
+        
+        //Progress bar
+        $cout_voyage = cout_voyage($id);
+        $euro_fidelite_percent = ($euro_fidelite * 100 ) / $cout_voyage;
+        
+        $euro_progression = 0.04*($CA_TOTAL - $donnees['RES_CA_REFERENCE']);
+        if($euro_progression < 0){$euro_progression = 0;}
+        
+        $euro_progression_percent = ($euro_progression*100)/($cout_voyage);
+        $percent_total = $euro_fidelite_percent + $euro_progression_percent;      
+        if($percent_total > 100){
+            $euro_fidelite_percent = ($euro_fidelite_percent*100)/$percent_total;
+            $euro_progression_percent = ($euro_progression_percent*100)/$percent_total;
+        }
+        
+        //Chart 1
+        $euro_fidelite_percent2 = (100*$CA_TOTAL)/$donnees['RES_CA_REFERENCE'];
+        if($euro_fidelite_percent2 > 100){
+            $euro_fidelite_percent2 = 100;
+        }
+        
+        // Chart 2
+        $euro_progression_percent2 = ($euro_progression*100)/($cout_voyage - $euro_fidelite);
+        if($euro_progression_percent2 > 100){
+            $euro_progression_percent2 = 100;    
+        }
+              
+        //Calcul du pourcentage pour marqueur.
+        $cout_restant = $cout_voyage - $euro_fidelite;
+        $x = $cout_restant / 0.04;
+        $total_ca = $donnees['RES_CA_REFERENCE'] + $x;
+        $marqueur = (100*$CA_TOTAL)/$total_ca;
+        
+        
+        $fidelite = array(
+            "RES_CA_REFERENCE" => $donnees["RES_CA_REFERENCE"],
+            "RES_CA_01_".$annee."" => $donnees["RES_CA_01_".$annee.""],
+            "RES_CA_02_".$annee."" => $donnees["RES_CA_02_".$annee.""],
+            "RES_CA_03_".$annee."" => $donnees["RES_CA_03_".$annee.""],
+            "RES_CA_04_".$annee."" => $donnees["RES_CA_04_".$annee.""],
+            "RES_CA_05_".$annee."" => $donnees["RES_CA_05_".$annee.""],
+            "RES_CA_06_".$annee."" => $donnees["RES_CA_06_".$annee.""],
+            "RES_CA_07_".$annee."" => $donnees["RES_CA_07_".$annee.""],
+            "RES_CA_08_".$annee."" => $donnees["RES_CA_08_".$annee.""],
+            "RES_CA_09_".$annee."" => $donnees["RES_CA_09_".$annee.""],
+            "RES_CA_10_".$annee."" => $donnees["RES_CA_10_".$annee.""],
+            "RES_CA_11_".$annee."" => $donnees["RES_CA_11_".$annee.""],
+            "RES_CA_12_".$annee."" => $donnees["RES_CA_12_".$annee.""],
+            "RES_CA_TOTAL" => $CA_TOTAL,
+            "EURO_FIDELITE" => $euro_fidelite,
+            "EURO_FIDELITE_PERCENT" => $euro_fidelite_percent,
+            "EURO_PROGRESSION" => $euro_progression,
+            "EURO_PROGRESSION_PERCENT" => $euro_progression_percent,
+            "COUT_VOYAGE" => $cout_voyage,
+            "EURO_PROGRESSION_PERCENT2" => $euro_progression_percent2, 
+            "EURO_FIDELITE_PERCENT2" => $euro_fidelite_percent2, 
+            "MARQUEUR" => $marqueur,
+    
+        );
+        
+        return $fidelite;
+    }
+
+
+    function cout_voyage($id){
+        $sql = "SELECT * FROM VOYAGE WHERE VOY_PRO_NUM LIKE '".$id."'";
+        $result = mysqli_query(myownlink(), $sql);
+        $donnees = mysqli_fetch_array($result);
+        
+        $cout_voyage = $donnees['VOY_COUT'];
+        
+        return $cout_voyage;
+    }
+
+    function french_number($number){
+        $frenchNumber = number_format($number, 2, ',', ' ');
+        
+        return $frenchNumber;
+    }
+
+    function chargement_voyage($id){
+        $sql = 'SELECT * FROM OPERATION JOIN VOYAGE ON OPERATION.OPE_DOSSIER = VOYAGE.VOY_OPE WHERE VOYAGE.VOY_PRO_NUM = "'.$id.'"';
+        $result = mysqli_query(myownlink(), $sql);
+        while($donnees = mysqli_fetch_array($result)){
+            $voyage = $donnees['OPE_WEB'];
+        }
+
+        return $voyage;
+    }
+	
+	function chargement_voyage2($id){
+        $sql = 'SELECT * FROM OPERATION JOIN VOYAGE ON OPERATION.OPE_DOSSIER = VOYAGE.VOY_OPE WHERE VOYAGE.VOY_PRO_NUM = "'.$id.'"';
+        $result = mysqli_query(myownlink(), $sql);
+        while($donnees = mysqli_fetch_array($result)){
+            $baseline = $donnees['OPE_BASELINE'];
+        }
+
+        return $baseline;
+    }
+
+    function chargement_preference_voyage($id){
+        $sql = 'SELECT * FROM VOYAGEUR WHERE VOY_PRO_NUM = "'.$id.'"';
+        $result = mysqli_query(myownlink(), $sql);
+        $i = 0;
+        while($donnees = mysqli_fetch_array($result)){
+            $accompagnant[$i] = array('id'=> $donnees['VOY_ID'], 'pro_num' => $donnees['VOY_PRO_NUM'], 'genre' => $donnees['VOY_ACC_GENRE'], 'nom' => $donnees['VOY_ACC_NOM'], 'prenom' => $donnees['VOY_ACC_PRENOM'], 'nationalite' => $donnees['VOY_ACC_NAT'], 'remarque' => $donnees['VOY_REMARQUE']);
+            $i++;    
+        }  
+
+        return $accompagnant;    
+    }
+
+    function chargement_preference_voyage2($id){
+        $sql = 'SELECT * FROM VOYAGE WHERE VOY_PRO_NUM = "'.$id.'"';
+        $result = mysqli_query(myownlink(), $sql);
+        while($donnees = mysqli_fetch_array($result)){
+            $informations = array('date' => $donnees['VOY_DATE'], 'room' => $donnees['VOY_ROOM'], 'supplement' => $donnees['VOY_SUPSGL'], 'nb_acc' => $donnees['VOY_NB_ACC'], 'tarif' => $donnees['VOY_TARIF'], 'assurance' => $donnees['VOY_ASSURANCE'], 'cout_assurance' => $donnees['VOY_COUT_ASSURANCE'], 'total_assurance' => $donnees['VOY_TOTAL_ASSURANCE']);
+        }
+
+        return $informations;
+    }
+
+?>

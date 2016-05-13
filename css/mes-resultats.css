@@ -1,0 +1,80 @@
+#mes_resultats_container{width:calc(100% - 24px);}
+.mes_resultats{font-weight:300; margin-top:24px; float:left;}
+#mes_resultats_conditions{width: calc(100% - 14px); margin-left: 14px; margin-bottom:14px; font-weight:300; float:left;}
+.mes_resultats_header{width: 100%; height: 40px; background: #239ed6; text-align:center;}
+.mes_resultats_ligne{float:left; width:100%;}
+.mes_resultats_titre{font-weight:700; font-size:18px; color: #FFF; line-height: 40px;}
+.mes_resultats_informations{border-radius:0; background-color:#F5F5F5; color:#239ED6; padding:20px; float:left; width:100%; box-sizing:border-box; text-align:center; font-size:15px;}
+#mesresultats_mois{width:calc((100% - 24px) / 3); margin-right:24px; margin-top:14px; margin-left:14px; margin-bottom:24px; box-sizing:border-box;}
+#globalmesresultats{float:left; width:calc((((100% - 75px) / 3) * 2) + 20px); margin-top:14px;}
+.mesresultats1{width:calc((100% - 48px) / 3); margin-right:24px; margin-top:0;}
+.mesresultats2{width:calc((100% - 48px) / 3); margin-top:0;}
+.mesresultats3{width:100%; margin-bottom:24px;}
+.mesresultats4{width:calc((100% - 24px) / 2); margin-right:24px;}
+.mesresultats5{width:calc((100% - 24px) / 2);}
+.mes_resultats6{font-weight:300; float:left;}
+.mesresultatshauteur1{height:585px;}
+.mesresultatshauteur2{height:58px;}
+.mesresultatshauteur3{height:101px;}
+.mesresultatshauteur4{height:175px;}
+#mesresultatspourcentzero{float:left; width:50%; text-align:left; font-size:12px; padding-left:6px; box-sizing:border-box;}
+#mesresultatspourcentcent{float:left; width:50%; text-align:right; font-size:12px; padding-right:6px; box-sizing:border-box;}
+#mesresultatsbarreglobal{width:100%; float:left; border-radius:11px; height:22px; background-color:#3b3b3b; background:rgba(0,0,0,0.2); @include disable; padding:3px; box-sizing:border-box; margin-top:5px !important;}
+#mesresultatsbarre_fidelite{float:left; background-color:#0183ba; height:14px; border-radius:7px 0 0 7px; margin-top:1px; margin-left:1px;}
+#mesresultatsbarre_progression{float:left; background-color:#006691; height:14px; border-radius:0 7px 7px 0; margin-top:1px;}
+#pourcent{width:50px; float:left; border-radius:11px; height:22px;  background:rgba(0,0,0,0.2); @include disable; padding:3px; box-sizing:border-box; margin-top:3px; font-size:15px; line-height:14px; text-align:center;}
+.paddingmois{padding:0 5px 28px 5px;}
+#contenu{width:100% !important;}
+.plugin.first{color:#239ED6;display:inline-block;left:0px;position:absolute;right:0px;top:-48px;}
+.chart, .chart2, .chart3{position:relative;}
+.chart-container{padding-bottom:13px;}
+.percent:after{content:'%';}
+
+h2{
+    display: inline-block;
+    color: #fff;
+    font-family: Roboto;
+    line-height: 40px;
+	height:40px;
+	font-size: 18px;
+	margin:0;
+}
+
+#column-contain{
+    width: 50%;
+    margin:auto;
+}
+
+.titre1, .titre2{
+    width: 50%;
+    height: 40px;
+    text-align: center;
+    color: #FFF;
+    float: left;
+    line-height: 40px;
+}
+
+#container-2{
+    width: calc(100% - 254px);
+}
+
+#container-1{
+    width: calc(100% - 254px);   
+}
+
+.titre1{
+    background: #0183BA;
+}
+
+.titre2{
+    background: #239ED6;
+}
+
+.titre1:last-child, .titre2:last-child{
+    margin-bottom: 25px;
+}
+
+#titre1, #titre2{
+    border-bottom: 1px solid #FFF;
+}
+
