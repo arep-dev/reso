@@ -1,5 +1,8 @@
 <?php 
 
+	// Fichier de test des PRO_STATUTS.
+	// En fonction du profil, on détermine toutes ses dépendances.
+
 	ini_set('display_errors','on');
 	error_reporting(E_ALL);
 
