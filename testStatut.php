@@ -1,6 +1,4 @@
 <?php 
-	
-	// Fichier de test des PRO_STATUTS.
 
 	ini_set('display_errors','on');
 	error_reporting(E_ALL);
@@ -253,12 +251,14 @@
 
 		if($pro_statut <> 0) {
 			$arrayClient = $profil->getArrayClient();
-			
+			//echo 'TEST : '.$arrayClient.' ===> ';
+			//print_r($arrayClient);
 			$arrayAtc = $profil->getArrayAtc();
-		
+			//echo 'TEST : '.$arrayAtc;
 			$arrayAgence = $profil->getArrayAgence();
-		
+			//echo 'TEST : '.$arrayAgence;
 			$arraySecteur = $profil->getArraySecteur();
+			//echo 'TEST : '.$arraySecteur;
 
 			switch ($pro_statut) {
 				case 1:
@@ -419,10 +419,3 @@
 	<input type="text" name="profil" placeholder="Profil ..."><br>
 	<input type="submit" name="send" value="chercher">
 </form>	
-
-
-<?php
-	echo 'PRO NUM : '.$profil->getProNum().'<br>';
-	echo	'PRO STATUT : '.$profil->getProStatut().'<br>';
-	
-?>

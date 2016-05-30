@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="css/mes-resultats.css">
+<link rel="stylesheet" href="css/mes-resultats-ca.css">
 <div id="container-2"></div>
 <div id="container-1">
     <div id="column-contain">

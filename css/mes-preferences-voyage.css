@@ -54,7 +54,6 @@
 	.infos i{font-size: 70px; color: #239ed6;}
 	
 	
-	.infos i:hover{color:#3b3b3b}
 	.infos .titre {
     float: left;
     width: 100%;
@@ -81,6 +80,8 @@
     margin-left: 25px;
     float: right;
     text-align: center;}
+	
+.options i:hover{color:#888}
 	
 	
 tr {

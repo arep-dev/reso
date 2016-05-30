@@ -1,0 +1,35 @@
+@import url(https://fonts.googleapis.com/css?family=Oswald:700,400);
+
+.infos{width:calc((100% - 72px) / 3); margin:12px; float:left; text-align:center;}
+.texte{width:100%; float:left; font-weight:300; font-size:14px; color:#000; height:65px;}
+.infos i {
+    font-size: 70px;
+    color: #239ed6;
+}
+.icone{height:150px; float:left; width:100%; color: #239ed6; margin-bottom:15px; height:80px;}
+.big{font-size:76px; color: #239ed6; line-height: 66px;}
+
+.regles_bloc{float:left; margin:14px; width:calc(100% - 38px); box-sizing:border-box;}
+.regles_header{width: 100%; height: 40px; background: #239ed6; text-align:left;}
+.regles_informations{border-radius:0; background-color:#F5F5F5; color:#239ED6; padding:20px; float:left; width:100%; box-sizing:border-box; text-align:left; font-size:15px;}
+h2{
+    display: inline-block;
+    color: #fff;
+    font-family: Roboto;
+    line-height: 40px;
+	height:40px;
+	font-size: 18px;
+    margin: 0px 0px 0px 10px;
+}
+.title{
+    width: 100%;
+    height: 40px;
+    background: #239ed6;
+}
+
+.title i{
+    display: inline-block;
+    color: #fff;
+    font-size: 18px;
+    margin-left: 10px;
+}

@@ -1,0 +1,7 @@
+text:last-child {
+    display: none;
+}
+
+g text {
+    display: block !important;
+}
