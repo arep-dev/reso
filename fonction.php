@@ -1,4 +1,9 @@
 <?php
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
+
     // Accès à la base de données.
     function myownlink()
     {
@@ -140,37 +145,46 @@
         
     }
 
-    function chargement_fidelite($id, $annee, $mois_en_cours){
-        $sql = 'SELECT * FROM FIDELITE WHERE RES_PRO_NUM = "'.$id.'"';
+    function chargement_fidelite($id){
+        // On charge les paramètres essentiels
+        include('parametres.php');
+        $parametres = chargement_parametres();
+
+        $sql = 'SELECT * FROM RESULTATS WHERE RES_PRO_NUM = "'.$id.'" ORDER BY RES_PRO_MOIS';
+        $result = mysqli_query(myownlink(), $sql);
+        
+        $CA_TOTAL = 0;
+        while($donnees = mysqli_fetch_array($result)) {
+            $CA_TOTAL += $donnees['RES_PRO_RESULTAT'];
+            $resultats[$donnees['RES_PRO_MOIS']] = $donnees['RES_PRO_RESULTAT'];
+        }
+
+        // Chargement resultats
+
+
+
+        $sql = 'SELECT * FROM CA_REFERENCE WHERE RES_PRO_NUM = "'.$id.'"';
         $result = mysqli_query(myownlink(), $sql);
         $donnees = mysqli_fetch_array($result);
         
-        //Calcul du CA TOTAL
-        for($i = 1; $i <= $mois_en_cours; $i++){
-            if($i < 10)
-            {
-                $CA_TOTAL += $donnees['RES_CA_0'.$i.'_'.$annee.''];
-            }else{
-                $CA_TOTAL += $donnees['RES_CA_'.$i.'_'.$annee.''];
-            }
-        }
+        //Pour modifier les pourcentages => TABLE PARAMETRE
+        $euro_fidelite = $parametres["REGLE_FIDELITE"]*$CA_TOTAL;
         
-        //Calcul €V FIDELITE + Pourcentage / Cout total voyage
-        //Pour modifier les pourcentages => Remplacer 0.04 et 0.01
-        $euro_fidelite = 0.01*$CA_TOTAL;
-        
-        if($euro_fidelite > 0.01*$donnees["RES_CA_REFERENCE"])
+        if($euro_fidelite > $parametres["REGLE_FIDELITE"]*$donnees["RES_CA_REFERENCE"])
         {
-            $euro_fidelite = 0.01*$donnees["RES_CA_REFERENCE"];
+            $euro_fidelite = $parametres["REGLE_FIDELITE"]*$donnees["RES_CA_REFERENCE"];
         }
         
         
         //Progress bar
         $cout_voyage = cout_voyage($id);
         $euro_fidelite_percent = ($euro_fidelite * 100 ) / $cout_voyage;
+
         
-        $euro_progression = 0.04*($CA_TOTAL - $donnees['RES_CA_REFERENCE']);
+        $euro_progression = $parametres["REGLE_PROGRESSION"]*($CA_TOTAL - $donnees['RES_CA_REFERENCE']);
         if($euro_progression < 0){$euro_progression = 0;}
+
+
         
         $euro_progression_percent = ($euro_progression*100)/($cout_voyage);
         $percent_total = $euro_fidelite_percent + $euro_progression_percent;      
@@ -193,25 +207,12 @@
               
         //Calcul du pourcentage pour marqueur.
         $cout_restant = $cout_voyage - $euro_fidelite;
-        $x = $cout_restant / 0.04;
+        $x = $cout_restant / $parametres["REGLE_PROGRESSION"];
         $total_ca = $donnees['RES_CA_REFERENCE'] + $x;
         $marqueur = (100*$CA_TOTAL)/$total_ca;
         
-        
         $fidelite = array(
             "RES_CA_REFERENCE" => $donnees["RES_CA_REFERENCE"],
-            "RES_CA_01_".$annee."" => $donnees["RES_CA_01_".$annee.""],
-            "RES_CA_02_".$annee."" => $donnees["RES_CA_02_".$annee.""],
-            "RES_CA_03_".$annee."" => $donnees["RES_CA_03_".$annee.""],
-            "RES_CA_04_".$annee."" => $donnees["RES_CA_04_".$annee.""],
-            "RES_CA_05_".$annee."" => $donnees["RES_CA_05_".$annee.""],
-            "RES_CA_06_".$annee."" => $donnees["RES_CA_06_".$annee.""],
-            "RES_CA_07_".$annee."" => $donnees["RES_CA_07_".$annee.""],
-            "RES_CA_08_".$annee."" => $donnees["RES_CA_08_".$annee.""],
-            "RES_CA_09_".$annee."" => $donnees["RES_CA_09_".$annee.""],
-            "RES_CA_10_".$annee."" => $donnees["RES_CA_10_".$annee.""],
-            "RES_CA_11_".$annee."" => $donnees["RES_CA_11_".$annee.""],
-            "RES_CA_12_".$annee."" => $donnees["RES_CA_12_".$annee.""],
             "RES_CA_TOTAL" => $CA_TOTAL,
             "EURO_FIDELITE" => $euro_fidelite,
             "EURO_FIDELITE_PERCENT" => $euro_fidelite_percent,
@@ -221,7 +222,8 @@
             "EURO_PROGRESSION_PERCENT2" => $euro_progression_percent2, 
             "EURO_FIDELITE_PERCENT2" => $euro_fidelite_percent2, 
             "MARQUEUR" => $marqueur,
-    
+            "RESULTATS" => $resultats,
+            "PARAMETRES" => $parametres
         );
         
         return $fidelite;

@@ -1,9 +1,12 @@
 <?php 
+	ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
     session_start();
     include('fonction.php');
-    $annee = 16;
-    $mois_en_cours = 6;
-    $fidelite = chargement_fidelite($_SESSION['PRO_NUM'], $annee, $mois_en_cours);
+    $mois_en_cours = date('n');
+    $fidelite = chargement_fidelite($_SESSION['PRO_NUM']);
 ?>
 <link rel="stylesheet" href="css/mes-resultats.css">
 <div id="container" style="float:left; width:calc(100% - 264px); margin:10px;" class="fadeIn animated">
@@ -20,9 +23,87 @@
 			<div class="mes_resultats_informations mesresultatshauteur1">
 				<table width="100%" border="0" cellspacing="0">
 				<?php
-                    $moyenne[] = 0;
-                    //$mois_en_cours = date('n');
-                    
+
+					/*foreach ($fidelite["RESULTATS"] as $mois => $ca) {
+						switch ($mois) {
+							case 1:
+								$mois = 'Janvier';
+								break;
+							case 2:
+								$mois = 'Février';
+								break;
+							case 3:
+								$mois = 'Mars';
+								break;
+							case 4:
+								$mois = 'Avril';
+								break;
+							case 5:
+								$mois = 'Mai';
+								break;
+							case 6:
+								$mois = 'Juin';
+								break;
+							case 7:
+								$mois = 'Juillet';
+							case 8:
+								$mois = 'Aout';
+							case 9:
+								$mois = 'Septembre';
+								break;
+							case 10:
+								$mois = 'Octobre';
+								break;
+							case 11:
+								$mois = 'Novembre';
+								break;
+							case 12:
+								$mois = 'Décembre';
+								break;	
+						}
+
+						echo '<tr>';
+						echo '<td class="paddingmois">'.$mois.'</td>';
+						echo '<td class="paddingmois">'.french_number($ca).'</td>';
+						echo '</tr>';
+					}*/
+
+					$parametres = $fidelite["PARAMETRES"];
+
+
+					$count = 0;
+					$stop = 0;
+					$limite = ($parametres["DEBUT_CHALLENGE"] + $parametres['DUREE_CHALLENGE']) ;
+					for($i = $parametres["DEBUT_CHALLENGE"]; $i < $limite; $i++) {
+						
+						if($i == 13) { 
+							$i = 1;
+						}
+						if($stop == 0) {
+							echo '<tr>';
+							echo '<td class="paddingmois">'.$i.'</td>';
+							//echo '<td class="paddingmois">'.french_number($fidelite["RESULTATS"][$i]).'</td>';
+							echo '<td class="paddingmois">test</td>';
+							echo '</tr>';
+						}else{
+							echo '<tr>';
+							echo '<td class="paddingmois">'.$i.'</td>';
+							//echo '<td class="paddingmois">'.french_number($fidelite["RESULTATS"][$i]).'</td>';
+							echo '<td class="paddingmois">Projection</td>';
+							echo '</tr>';
+						}
+						if($count == 11) {
+							break;
+						}
+
+						if($i == $mois_en_cours) {
+							$stop = 1;
+						}
+
+						$count++;
+					}
+
+                   /* $moyenne[] = 0;
 
                     for($i = 1; $i <= 12; $i++)
                     {
@@ -67,7 +148,7 @@
                         }
                         
                         
-                    }
+                    }*/
             
 				?>
 				</table>

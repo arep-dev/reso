@@ -1,5 +1,4 @@
 <?php
-    session_start();
     include('fonction.php');
     $profil = chargement_profil($_SESSION['PRO_NUM']);
 ?>
