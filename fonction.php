@@ -24,6 +24,7 @@
                 "PRO_NOM" => $donnees["PRO_NOM"],
                 "PRO_PRENOM" => $donnees["PRO_PRENOM"],
                 "PRO_MDP" => $donnees["PRO_MDP"],
+                "PRO_STATUT" => $donnees["PRO_STATUT"],
                 "PRO_JOUR_NAISSANCE" => $donnees["PRO_JOUR_NAISSANCE"],
                 "PRO_MOIS_NAISSANCE" => $donnees["PRO_MOIS_NAISSANCE"],
                 "PRO_ANNEE_NAISSANCE" => $donnees["PRO_ANNEE_NAISSANCE"],

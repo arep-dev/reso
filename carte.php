@@ -41,6 +41,11 @@
 						<li class="ssmenus sscontact vide"></li>
 					<?php
 					break;
+				case 1:
+					?>
+						<ul class="menus moncompte"><a href="mon-compte.php" class="load"><span class="ouvrir" id="moncompte">MON COMPTE</span></a></ul>
+					<?php
+					break;	
 			}
  		?>
 			
