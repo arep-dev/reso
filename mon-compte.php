@@ -86,63 +86,6 @@
                         $i++;    
                     }
                 ?>
-
-
-               <!-- <div class="bloc_hobbies">
-                    <div class="icon_hobbies golf"><i class="fa fa-map-pin"></i></div>
-                    <i class="fa fa-check"  <?php if($hobbie["HOB_GOLF"] == 1){echo 'style="display:block !important"';}else{echo 'style="display:none !important"';}?>></i>
-                    <label for="checkbox_golf" class="label_hobbies">
-                        Golf   
-                    </label>
-                    <input type="checkbox" name="checkbox_golf" id="checkbox_golf" value="value" <?php if($hobbie["HOB_GOLF"] == 1){echo 'checked';}?>>
-                </div>
-
-             <div class="bloc_hobbies">
-                 <div class="icon_hobbies gastronomieoenologie"><i class="fa fa-cutlery"></i></div>   
-                 <i class="fa fa-check"  <?php if($hobbie["HOB_GASTRO_OENO"] == 1){echo 'style="display:block !important"';}else{echo 'style="display:none !important"';}?>></i>
-                    <label for="checkbox_gastronomieoenologie" class="label_hobbies">
-                         Gastronomie
-                    </label>
-                    <input type="checkbox" name="checkbox_gastronomieoenologie" id="checkbox_gastronomieoenologie" value="value" <?php if($hobbie["HOB_GASTRO_OENO"] == 1){echo 'checked';}?>>
-                </div>
-
-                <div class="bloc_hobbies">
-                    <div class="icon_hobbies plongeesousmarine"><i class="fa fa-anchor"></i></div>
-                   <i class="fa fa-check"  <?php if($hobbie["HOB_PLONGEE"] == 1){echo 'style="display:block !important"';}else{echo 'style="display:none !important"';}?>></i>
-                    <label for="checkbox_plongeesousmarine" class="label_hobbies">
-                        Plongée       
-                    </label>
-                    <input type="checkbox" name="checkbox_plongeesousmarine" id="checkbox_plongeesousmarine" class="checkbox_ci" value="value" <?php if($hobbie["HOB_PLONGEE"] == 1){echo 'checked';}?>>
-                </div>
-
-                <div class="bloc_hobbies">
-                    <div class="icon_hobbies sportsmecaniques"><i class="fa fa-car"></i></div>
-                   <i class="fa fa-check"  <?php if($hobbie["HOB_SPORT_MECA"] == 1){echo 'style="display:block !important"';}else{echo 'style="display:none !important"';}?>></i>
-                    <label for="checkbox_sportsmecaniques" class="label_hobbies">
-                        Automobile    
-                    </label>
-                    <input type="checkbox" name="checkbox_sportsmecaniques" id="checkbox_sportsmecaniques" class="checkbox_ci" value="value" <?php if($hobbie["HOB_SPORT_MECA"] == 1){echo 'checked';}?>>
-                </div>
-
-
-                <div class="bloc_hobbies">
-                    <div class="icon_hobbies architecture"><i class="fa fa-university"></i></div>
-                   <i class="fa fa-check"  <?php if($hobbie["HOB_ARCHITECTURE"] == 1){echo 'style="display:block !important"';}else{echo 'style="display:none !important"';}?>></i>
-                    <label for="checkbox_architecture" class="label_hobbies">
-                        Architecture    
-                    </label>
-                    <input type="checkbox" name="checkbox_architecture" id="checkbox_architecture" class="checkbox_ci" value="value" <?php if($hobbie["HOB_ARCHITECTURE"] == 1){echo 'checked';}?>>
-                </div>
-
-                <div class="bloc_hobbies">
-                    <div class="icon_hobbies safari"><i class="fa fa-paw"></i></div>
-                    <i class="fa fa-check"  <?php if($hobbie["HOB_SAFARI"] == 1){echo 'style="display:block !important"';}else{echo 'style="display:none !important"';}?>></i>
-                    <label for="checkbox_safari" class="label_hobbies">
-                        Safari    
-                    </label>
-                    <input type="checkbox" name="checkbox_safari" id="checkbox_safari" class="checkbox_ci" value="value" <?php if($hobbie["HOB_SAFARI"] == 1){echo 'checked';}?>>
-
-                </div> -->
                 
                 <div class="clear"></div>
             <input type="hidden" name="traitement" value="hobbie">
