@@ -25,50 +25,6 @@
 				<table width="100%" border="0" cellspacing="0">
 				<?php
 
-					/*foreach ($fidelite["RESULTATS"] as $mois => $ca) {
-						switch ($mois) {
-							case 1:
-								$mois = 'Janvier';
-								break;
-							case 2:
-								$mois = 'Février';
-								break;
-							case 3:
-								$mois = 'Mars';
-								break;
-							case 4:
-								$mois = 'Avril';
-								break;
-							case 5:
-								$mois = 'Mai';
-								break;
-							case 6:
-								$mois = 'Juin';
-								break;
-							case 7:
-								$mois = 'Juillet';
-							case 8:
-								$mois = 'Aout';
-							case 9:
-								$mois = 'Septembre';
-								break;
-							case 10:
-								$mois = 'Octobre';
-								break;
-							case 11:
-								$mois = 'Novembre';
-								break;
-							case 12:
-								$mois = 'Décembre';
-								break;	
-						}
-
-						echo '<tr>';
-						echo '<td class="paddingmois">'.$mois.'</td>';
-						echo '<td class="paddingmois">'.french_number($ca).'</td>';
-						echo '</tr>';
-					}*/
-
 					$parametres = $fidelite["PARAMETRES"];
 					foreach ($fidelite["RESULTATS"] as $key => $value) {
 						$resultats[] = $value;
@@ -95,13 +51,13 @@
 						if($stop == 0) {
 							echo '<tr>';
 							echo '<td class="paddingmois">'.$i.'</td>';
-							//echo '<td class="paddingmois">'.french_number($fidelite["RESULTATS"][$i]).'</td>';
+
 							echo '<td class="paddingmois">'.$resultats[$count].'</td>';
 							echo '</tr>';
 						}else{
 							echo '<tr>';
 							echo '<td class="paddingmois">'.$i.'</td>';
-							//echo '<td class="paddingmois">'.french_number($fidelite["RESULTATS"][$i]).'</td>';
+	
 							echo '<td class="paddingmois" style="font-weight:bolder;">'.$caProject.'**</td>';
 							echo '</tr>';
 
@@ -119,53 +75,6 @@
 					}
 
 					$caProject2 = ($caProject * $count2) + $fidelite["RES_CA_TOTAL"];
-
-                   /* $moyenne[] = 0;
-
-                    for($i = 1; $i <= 12; $i++)
-                    {
-                        echo '<tr';
-                        if($i == $mois_en_cours - 1)
-                        {
-                            echo ' style="color:#019cde;"';
-                            
-                        }else if($i > $mois_en_cours - 1)
-                        {
-                            echo ' style="font-style:italic;"';
-                        }
-                        
-                        echo '><td class="paddingmois">';
-                        
-                        $number_month = $mois_en_cours - 1;
-            
-                        $moyenne[$i] = ($fidelite['RES_CA_TOTAL'] + $moyenne[$i-1])  / $number_month;    
-
-                        if($i < 10)
-                        {
-                            echo '0';
-                            echo $i.'/'.$annee.'</td><td class="paddingmois">';
-                            if($i > $mois_en_cours - 1){
-                                echo french_number($moyenne[$i]).' €';
-                            }else{
-                                echo french_number($fidelite['RES_CA_0'.$i.'_'.$annee.'']).' €';
-                            }
-                            if($i > $mois_en_cours - 1){echo '**';}
-                            echo '</td></tr>';
-                            
-                        }else{
-                            
-                            echo $i.'/'.$annee.'</td><td class="paddingmois">';
-                            if($i > $mois_en_cours - 1){
-                                echo french_number($moyenne[$i]).' €';
-                            }else{
-                                echo french_number($fidelite['RES_CA_'.$i.'_'.$annee.'']).' €';
-                            }
-                            if($i > $mois_en_cours - 1){echo '**';}
-                            echo '</td></tr>';   
-                        }
-                        
-                        
-                    }*/
             
 				?>
 				</table>
