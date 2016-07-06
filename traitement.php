@@ -40,40 +40,39 @@
         case 'hobbie':
             // Checkbox hobbies
             
-            $golf = 0;
-            $gastro = 0;
-            $plongee = 0;
-            $sportmeca = 0;
-            $safari = 0;
-            $architecture = 0;
+            $hob1 = 0;
+            $hob2 = 0;
+            $hob3 = 0;
+            $hob4 = 0;
+            $hob5 = 0;
+            $hob6 = 0;
             
-            if(isset($_POST['checkbox_golf'])){
-                $golf = 1;
+            if(isset($_POST['hob1'])){
+                $hob1 = 1;
             }
 
-            if(isset($_POST['checkbox_gastronomieoenologie'])){
-                $gastro = 1;
+            if(isset($_POST['hob2'])){
+                $hob2 = 1;
             }
 
-            if(isset($_POST['checkbox_plongeesousmarine'])){
-                $plongee = 1;
+            if(isset($_POST['hob3'])){
+                $hob3 = 1;
             }
 
-            if(isset($_POST['checkbox_sportsmecaniques'])){
-                $sportmeca = 1;
+            if(isset($_POST['hob4'])){
+                $hob4 = 1;
             }
 
-            if(isset($_POST['checkbox_architecture'])){
-                $architecture = 1;
+            if(isset($_POST['hob5'])){
+                $hob5 = 1;
             }
 
-            if(isset($_POST['checkbox_safari'])){
-                $safari = 1;
+            if(isset($_POST['hob6'])){
+                $hob6 = 1;
             }
             
-            // Ligne de test : echo $golf.' '.$gastro.' '.$plongee.' '.$sportmeca.' '.$architecture.' '.$safari;
             
-            $sql = 'SELECT * FROM HOBBIE WHERE HOB_PRO_NUM = "'.$id.'"';
+            $sql = 'SELECT * FROM HOBBIES WHERE HOB_PRO_NUM = "'.$id.'"';
             $result = mysqli_query(myownlink(),$sql);
             $i = 0;
             while($donnee = mysqli_fetch_array($result)){
@@ -82,13 +81,13 @@
 
             if($i == 0){
 
-                $sql = 'INSERT INTO HOBBIE (HOB_PRO_NUM,HOB_GOLF, HOB_SPORT_MECA, HOB_GASTRO_OENO, HOB_ARCHITECTURE, HOB_PLONGEE, HOB_SAFARI ) VALUES ("'.$id.'","'.$golf.'","'.$sportmeca.'","'.$gastro.'","'.$architecture.'","'.$plongee.'","'.$safari.'")'; 
+                $sql = 'INSERT INTO HOBBIES (HOB_PRO_NUM,HOB_VAL1, HOB_VAL2, HOB_VAL3, HOB_VAL4, HOB_VAL5, HOB_VAL6 ) VALUES ("'.$id.'","'.$hob1.'","'.$hob2.'","'.$hob3.'","'.$hob4.'","'.$hob5.'","'.$hob6.'")'; 
 
                 $result = mysqli_query(myownlink(),$sql);
 
-            }else if($i == 1){
+            }else if($i > 0){
 
-                $sql = 'UPDATE HOBBIE SET HOB_GOLF = "'.$golf.'", HOB_SPORT_MECA = "'.$sportmeca.'", HOB_GASTRO_OENO = "'.$gastro.'", HOB_ARCHITECTURE = "'.$architecture.'", HOB_PLONGEE = "'.$plongee.'", HOB_SAFARI = "'.$safari.'" WHERE HOB_PRO_NUM = "'.$id.'"';
+                $sql = 'UPDATE HOBBIES SET HOB_VAL1 = "'.$hob1.'", HOB_VAL2 = "'.$hob2.'", HOB_VAL3 = "'.$hob3.'", HOB_VAL4 = "'.$hob4.'", HOB_VAL5 = "'.$hob5.'", HOB_VAL6 = "'.$hob6.'" WHERE HOB_PRO_NUM = "'.$id.'"';
 
                 $result = mysqli_query(myownlink(),$sql);
             }
@@ -234,14 +233,14 @@
             
             
         case 'getActivite':
-            $sql = 'SELECT * FROM ACTIVITE_VAL WHERE SOC_PRO_NUM = "'.$id.'"';
+            $sql = 'SELECT * FROM ACTIVITE WHERE SOC_PRO_NUM = "'.$id.'"';
             $result = mysqli_query(myownlink(), $sql);
             $donnees = mysqli_fetch_array($result);
-            $sql2 = 'SELECT * FROM ACTIVITE_NAME';
+            $sql2 = 'SELECT * FROM PARAMETRES';
             $result2 = mysqli_query(myownlink(), $sql2);
             $donnees2 = mysqli_fetch_array($result2);
             
-            echo '{"quote1": "'.$donnees['SOC_QUOTE1'].'", "quote2": "'.$donnees['SOC_QUOTE2'].'", "quote3": "'.$donnees['SOC_QUOTE3'].'", "quote4": "'.$donnees['SOC_QUOTE4'].'", "quote5": "'.$donnees['SOC_QUOTE5'].'", "activite1": "'.$donnees2['SOC_ACTIVITE1'].'", "activite2": "'.utf8_encode($donnees2['SOC_ACTIVITE2']).'", "activite3": "'.$donnees2['SOC_ACTIVITE3'].'", "activite4": "'.$donnees2['SOC_ACTIVITE4'].'", "activite5": "'.utf8_encode($donnees2['SOC_ACTIVITE5']).'"}';
+            echo '{"quote1": "'.$donnees['ACTIVITY_VAL1'].'", "quote2": "'.$donnees['ACTIVITY_VAL2'].'", "quote3": "'.$donnees['ACTIVITY_VAL3'].'", "quote4": "'.$donnees['ACTIVITY_VAL4'].'", "quote5": "'.$donnees['ACTIVITY_VAL5'].'", "activite1": "'.$donnees2['ACTIVITY_NAME1'].'", "activite2": "'.utf8_encode($donnees2['ACTIVITY_NAME2']).'", "activite3": "'.$donnees2['ACTIVITY_NAME3'].'", "activite4": "'.$donnees2['ACTIVITY_NAME4'].'", "activite5": "'.utf8_encode($donnees2['ACTIVITY_NAME5']).'"}';
             
             break;
             

@@ -1,9 +1,4 @@
 <?php
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-
-
     // Accès à la base de données.
     function myownlink()
     {
@@ -67,51 +62,55 @@
     
     // Chargement de la table HOBBIE.
     function chargement_hobbie($pro_num){
-        $sql = 'SELECT * FROM HOBBIE WHERE HOB_PRO_NUM = "'.$pro_num.'"';
+        $sql = 'SELECT * FROM HOBBIES WHERE HOB_PRO_NUM = "'.$pro_num.'"';
         $result = mysqli_query(myownlink(), $sql);
         $donnees = mysqli_fetch_array($result);
+
+        $sql = 'SELECT * FROM PARAMETRES';
+        $result = mysqli_query(myownlink(), $sql);
+        $donnees2 = mysqli_fetch_array($result);
                 
-            $hobbie = array(
-                "HOB_GOLF" => $donnees["HOB_GOLF"],
-                "HOB_SPORT_MECA" => $donnees["HOB_SPORT_MECA"],
-                "HOB_GASTRO_OENO" => $donnees["HOB_GASTRO_OENO"],
-                "HOB_ARCHITECTURE" => $donnees["HOB_ARCHITECTURE"],
-                "HOB_PLONGEE" => $donnees["HOB_PLONGEE"],
-                "HOB_SAFARI" => $donnees["HOB_SAFARI"]
+            $hobbies = array(
+                $donnees2["HOB_NAME1"] => $donnees["HOB_VAL1"],
+                $donnees2["HOB_NAME2"] => $donnees["HOB_VAL2"],
+                $donnees2["HOB_NAME3"] => $donnees["HOB_VAL3"],
+                $donnees2["HOB_NAME4"] => $donnees["HOB_VAL4"],
+                $donnees2["HOB_NAME5"] => $donnees["HOB_VAL5"],
+                $donnees2["HOB_NAME6"] => $donnees["HOB_VAL6"]
             );
         
-            return $hobbie;    
+            return $hobbies;    
     }
 
     
     // Chargement de la table ACTIVITE_NAME ET ACTIVITE_VAL
     function get_activity_name(){
-        $sql = 'SELECT * FROM ACTIVITE_NAME';
+        $sql = 'SELECT * FROM PARAMETRES';
         $result = mysqli_query(myownlink(), $sql);
         $donnees = mysqli_fetch_array($result);
         
         $activite = array(
-            "SOC_ACTIVITE1" => utf8_encode($donnees["SOC_ACTIVITE1"]),
-            "SOC_ACTIVITE2" => utf8_encode($donnees["SOC_ACTIVITE2"]),
-            "SOC_ACTIVITE3" => utf8_encode($donnees["SOC_ACTIVITE3"]),
-            "SOC_ACTIVITE4" => utf8_encode($donnees["SOC_ACTIVITE4"]),
-            "SOC_ACTIVITE5" => utf8_encode($donnees["SOC_ACTIVITE5"])
+            "SOC_ACTIVITE1" => utf8_encode($donnees["ACTIVITY_NAME1"]),
+            "SOC_ACTIVITE2" => utf8_encode($donnees["ACTIVITY_NAME2"]),
+            "SOC_ACTIVITE3" => utf8_encode($donnees["ACTIVITY_NAME3"]),
+            "SOC_ACTIVITE4" => utf8_encode($donnees["ACTIVITY_NAME4"]),
+            "SOC_ACTIVITE5" => utf8_encode($donnees["ACTIVITY_NAME5"])
         );
         
         return $activite;
     }
 
     function get_activity_val($id){
-        $sql = 'SELECT * FROM ACTIVITE_VAL WHERE SOC_PRO_NUM = "'.$id.'"';
+        $sql = 'SELECT * FROM ACTIVITE WHERE SOC_PRO_NUM = "'.$id.'"';
         $result = mysqli_query(myownlink(), $sql);
         $donnees = mysqli_fetch_array($result);
         
         $activite = array(
-            "SOC_QUOTE1" => $donnees["SOC_QUOTE1"],
-            "SOC_QUOTE2" => $donnees["SOC_QUOTE2"],
-            "SOC_QUOTE3" => $donnees["SOC_QUOTE3"],
-            "SOC_QUOTE4" => $donnees["SOC_QUOTE4"],
-            "SOC_QUOTE5" => $donnees["SOC_QUOTE5"]
+            "SOC_QUOTE1" => $donnees["ACTIVITY_VAL1"],
+            "SOC_QUOTE2" => $donnees["ACTIVITY_VAL2"],
+            "SOC_QUOTE3" => $donnees["ACTIVITY_VAL3"],
+            "SOC_QUOTE4" => $donnees["ACTIVITY_VAL4"],
+            "SOC_QUOTE5" => $donnees["ACTIVITY_VAL5"]
         );
         
         return $activite;
@@ -121,8 +120,8 @@
     function message_return($return){
         
         // Tableau des messages d'erreurs.
-        // 100 - 199 messages success. GREEN
-        // 200 - 299 messages error. RED
+        // 100 - 199 messages success. VERT
+        // 200 - 299 messages error. ROUGE
         // 300 - 399 messages error/success. ORANGE 
         $messageErreur = array(
         '100' => 'Modification effectuée avec succès.',
@@ -150,7 +149,7 @@
         include('parametres.php');
         $parametres = chargement_parametres();
 
-        $sql = 'SELECT * FROM RESULTATS WHERE RES_PRO_NUM = "'.$id.'" ORDER BY RES_PRO_MOIS';
+        $sql = 'SELECT * FROM RESULTATS WHERE RES_PRO_NUM = "'.$id.'" AND RES_PRO_MOIS != 0 ORDER BY RES_PRO_MOIS';
         $result = mysqli_query(myownlink(), $sql);
         
         $CA_TOTAL = 0;
@@ -163,10 +162,10 @@
 
 
 
-        $sql = 'SELECT * FROM CA_REFERENCE WHERE RES_PRO_NUM = "'.$id.'"';
+        $sql = 'SELECT RES_PRO_RESULTAT FROM RESULTATS WHERE RES_PRO_NUM = "'.$id.'" AND RES_PRO_MOIS = 0';
         $result = mysqli_query(myownlink(), $sql);
         $donnees = mysqli_fetch_array($result);
-        
+        $donnees["RES_CA_REFERENCE"] = $donnees[0];
         //Pour modifier les pourcentages => TABLE PARAMETRE
         $euro_fidelite = $parametres["REGLE_FIDELITE"]*$CA_TOTAL;
         

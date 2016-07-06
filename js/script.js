@@ -167,7 +167,7 @@ $(function(){
     
     // Fonction de check des hobbies avant l'envoi vers la BDD.
     function hobbies(){
-       
+        
         verif = $(this).prev().attr('style');
         if(verif == 'display:none !important'){
             $(this).prev('i').attr('style','display:block !important');
@@ -175,17 +175,17 @@ $(function(){
             $(this).prev('i').attr('style','display:none !important');
         }
         
-        
+        console.log('verif :'+verif);
         setTimeout(function(){
             ajaxRequest('form_hobbies');
         },1000);    
         
-    
+        console.log('ok');
     }
     
     // Fonction globale AJAX d'accès à la BDD.
     function ajaxRequest(target){
-        
+        console.log($('#'+target).serialize());
         $.ajax({
             url: 'traitement.php',
             type: 'POST',
@@ -217,7 +217,7 @@ $(function(){
                 
                 
                 // Fonction de rechargement des blocs flipped sur la page mon compte.
-                rechargementMonCompte(html.code);
+                rechargementMonCompte(html.code, target);
                 
                 // Utiliser la fonction rechargerPage() pour le reste.
 
@@ -234,7 +234,7 @@ $(function(){
     }
     
     
-    function rechargementMonCompte(code){
+    function rechargementMonCompte(code, target){
         
         if(target != 'form_hobbies' && target != 'form_pass' && parseInt(code) < 200 || parseInt(code) >= 300 ){}
     if(target == 'form_moncompte'){

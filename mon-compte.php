@@ -60,11 +60,35 @@
 				
             </div>
             <?php
-                $hobbie = chargement_hobbie($_SESSION["PRO_NUM"]);
+                $hobbies = chargement_hobbie($_SESSION["PRO_NUM"]);
             ?>
             <form method="post" action="traitement.php" id="form_hobbies">
             <div id="hobbies_container">
-                <div class="bloc_hobbies">
+
+                <?php
+                    $i = 1;
+                    foreach ($hobbies as $name => $value) {
+                        if($value == 1) {
+                            $var = 'style="display:block !important"';
+                            $var2 = 'checked';
+                        }else{
+                            $var = 'style="display:none !important"';
+                            $var2 = '';
+                        }
+                        echo '<div class="bloc_hobbies">
+                                <div class="icon_hobbies golf"><i class="fa fa-map-pin"></i></div>
+                                <i class="fa fa-check" '.$var.'></i>
+                                <label for="hob'.$i.'" class="label_hobbies">
+                                     '.$name.'
+                                </label>
+                                <input type="checkbox" name="hob'.$i.'" id="hob'.$i.'" value="value" '.$var2.'>
+                            </div>';
+                        $i++;    
+                    }
+                ?>
+
+
+               <!-- <div class="bloc_hobbies">
                     <div class="icon_hobbies golf"><i class="fa fa-map-pin"></i></div>
                     <i class="fa fa-check"  <?php if($hobbie["HOB_GOLF"] == 1){echo 'style="display:block !important"';}else{echo 'style="display:none !important"';}?>></i>
                     <label for="checkbox_golf" class="label_hobbies">
@@ -118,7 +142,7 @@
                     </label>
                     <input type="checkbox" name="checkbox_safari" id="checkbox_safari" class="checkbox_ci" value="value" <?php if($hobbie["HOB_SAFARI"] == 1){echo 'checked';}?>>
 
-                </div>
+                </div> -->
                 
                 <div class="clear"></div>
             <input type="hidden" name="traitement" value="hobbie">
@@ -347,7 +371,7 @@
 	<?php
     $activite = get_activity_name();
     $activite2 = get_activity_val($_SESSION['PRO_NUM']);
-?>
+    ?>
 	
 	
 	<form method="post" id="form_activite">

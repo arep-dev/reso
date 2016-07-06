@@ -5,6 +5,7 @@
 
     session_start();
     include('fonction.php');
+    date_default_timezone_set('Europe/Paris');
     $mois_en_cours = date('n');
     $fidelite = chargement_fidelite($_SESSION['PRO_NUM']);
 ?>
@@ -69,10 +70,22 @@
 					}*/
 
 					$parametres = $fidelite["PARAMETRES"];
+					foreach ($fidelite["RESULTATS"] as $key => $value) {
+						$resultats[] = $value;
+					}
 
+					$moyenne = 0;
+					$count = 0;
+					foreach ($resultats as $key => $value) {
+						$moyenne += $value; 
+						$count++;
+					}
+
+					$caProject = $moyenne / $count;
 
 					$count = 0;
 					$stop = 0;
+					$count2 = 0;
 					$limite = ($parametres["DEBUT_CHALLENGE"] + $parametres['DUREE_CHALLENGE']) ;
 					for($i = $parametres["DEBUT_CHALLENGE"]; $i < $limite; $i++) {
 						
@@ -83,16 +96,18 @@
 							echo '<tr>';
 							echo '<td class="paddingmois">'.$i.'</td>';
 							//echo '<td class="paddingmois">'.french_number($fidelite["RESULTATS"][$i]).'</td>';
-							echo '<td class="paddingmois">test</td>';
+							echo '<td class="paddingmois">'.$resultats[$count].'</td>';
 							echo '</tr>';
 						}else{
 							echo '<tr>';
 							echo '<td class="paddingmois">'.$i.'</td>';
 							//echo '<td class="paddingmois">'.french_number($fidelite["RESULTATS"][$i]).'</td>';
-							echo '<td class="paddingmois">Projection</td>';
+							echo '<td class="paddingmois" style="font-weight:bolder;">'.$caProject.'**</td>';
 							echo '</tr>';
+
+							$count2++;
 						}
-						if($count == 11) {
+						if($count == ($parametres['DUREE_CHALLENGE'] - 1)) {
 							break;
 						}
 
@@ -102,6 +117,8 @@
 
 						$count++;
 					}
+
+					$caProject2 = ($caProject * $count2) + $fidelite["RES_CA_TOTAL"];
 
                    /* $moyenne[] = 0;
 
@@ -182,13 +199,7 @@
 				<div class="mes_resultats_informations mesresultatshauteur2" style="font-style:italic;">
 					
                     <?php
-                    $caProject = $fidelite["RES_CA_TOTAL"];
-                    
-                    for($s = 0 ; $s <= 12 ; $s++){
-                        $caProject += $moyenne[$s];
-                    } 
-
-                    echo french_number($caProject).' €**';
+                    	echo french_number($caProject2).' €**';
                     ?>
                     
 				</div>

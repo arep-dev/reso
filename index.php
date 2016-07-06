@@ -4,6 +4,8 @@
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
+    date_default_timezone_set('Europe/Paris');
+
     session_start();
     if(!isset($_SESSION['log']) && $_SESSION['log'] != 1){
         header('Location: login.php');
