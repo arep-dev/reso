@@ -1,9 +1,15 @@
 <?php 
-
 	function chargement_parametres() {
-		$sql = 'SELECT * FROM PARAMETRES';
+		$user="arep_CATB";
+		$host="142.4.214.101";
+		$password="arep-sa";
+		$database="PARAMETRES_CHALLENGE";
 
-		$query = mysqli_query(myownlink(), $sql);
+		$bdd = mysqli_connect("$host", "$user", "$password", "$database") or die ("Connexion impossible au serveur");
+
+		$sql = 'SELECT * FROM PARAMETRES WHERE NAME="reso"';
+
+		$query = mysqli_query($bdd, $sql);
 		$donnees = mysqli_fetch_array($query);
 
 		$parametres = array(
